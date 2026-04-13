@@ -1,0 +1,36 @@
+package jdbc;
+
+import java.util.List;
+
+public class DepartmentDAOTest {
+
+	public static void main(String[] args) {
+		DepartmentDAO deDAO = new DepartmentDAO();
+		
+		//추가
+//		DepartmentVO deVO = new DepartmentVO();
+//		deVO.setDepartmentId(500);
+//		deVO.setDepartmentName("Training");
+//		deVO.setManagerId(100);
+//		deVO.setLocationId(2500);
+//		int cnt = deDAO.insert(deVO);
+//		System.out.println(cnt + "건 처리됨");
+		//업데이트
+		DepartmentVO deVO = new DepartmentVO();
+		deVO.setDepartmentName(null);
+		
+		//단건조회
+		DepartmentVO list1 = deDAO.selectOne(10);
+		
+		System.out.println(list1.getDepartmentId() + " " + list1.getDepartmentName()+" "+list1.getManagerId()+" "+list1.getLocationId());
+		
+		
+		//전체조회
+//		List<DepartmentVO> list = deDAO.selectAll();
+//		for(DepartmentVO deVO : list) {
+//			System.out.println(deVO.getDepartmentId() + " " + deVO.getDepartmentName()+" "+deVO.getManagerId()+" "+deVO.getLocationId());
+//		}
+
+	}
+
+}

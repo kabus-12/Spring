@@ -1,0 +1,30 @@
+package com.example.demo;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+public class EmpMapperTest {
+	
+	@Autowired
+	EmployeeMapper mapper;
+	
+	@Test
+	public void selectOne() {
+		EmployeeVO emp = mapper.selectOne(100);
+		System.out.println(emp.getFirstName());
+	};
+	
+	
+	//@Test
+	public void selectAll() {
+		List<EmployeeVO> list = mapper.selectAll();
+		for(EmployeeVO emp : list) {
+			System.out.println(emp.getFirstName());
+		}
+	}
+	
+}

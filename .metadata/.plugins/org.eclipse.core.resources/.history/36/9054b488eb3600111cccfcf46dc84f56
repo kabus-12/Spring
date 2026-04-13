@@ -1,0 +1,46 @@
+package jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DepartmentDAO {
+	String jdbc_driver = "oracle.jdbc.OracleDriver";
+	String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	String username = "hr";
+	String password = "hr";
+	
+	
+	
+	
+	//전체조회
+	List<DepartmentVO> list = new ArrayList<>();
+	List<DepartmentVO> selectAll() {
+		 try (
+	        		//(2. 데이터베이스 연결)
+	            Connection conn = DriverManager.getConnection(url, username, password);
+	            //SQL 구문
+	        	Statement stmt = conn.createStatement()) {
+			 
+			 ResultSet rs = stmt.executeQuery("SELECT * FROM employees");
+			 while (rs.next()) {
+				 	DepartmentVO emp = new DepartmentVO();
+	                //firstName,lastName,salary,hiredate
+	                emp.setDepartmentId(rs.getInt("department_id"));
+	                emp.setDepartmentName(rs.getString("department_name"));
+	                emp.setManagerId(rs.getInt("MANAGER_ID"));
+	                emp.setLocationId(rs.getInt("LOCATION_ID"));
+	                list.add(emp);
+	            }
+			 
+		 }
+		 catch (Exception e) {
+	            e.printStackTrace();
+	       }
+		 return list;
+		
+	};
+}

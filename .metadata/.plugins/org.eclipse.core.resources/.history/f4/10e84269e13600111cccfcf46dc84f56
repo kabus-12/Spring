@@ -1,0 +1,24 @@
+package jdbc;
+
+import java.util.List;
+
+//import java.sql.SQLException;
+
+public class EmpDAOTest {
+
+	public static void main(String[] args)  {
+		EmployeeDAO empDAO = new EmployeeDAO();
+		EmployeeVO emp = empDAO.selectOne(103);
+		System.out.printf("%s,%s,%f,%d",emp.getFirstName(),emp.getLastName(),emp.getSalary(),emp.getHireDate());
+		
+		
+//		List<EmployeeVO> list = empDAO.selectAll();
+//		for(EmployeeVO emp : list) {
+//        	System.out.print(emp.getFirstName() + "\t\t");
+//        	System.out.print(emp.getLastName() + "\t\t");
+//        	System.out.print(emp.getSalary() + "\t\t");
+//        	System.out.print(emp.getHireDate());
+//        	System.out.println();
+//        }
+	}
+}

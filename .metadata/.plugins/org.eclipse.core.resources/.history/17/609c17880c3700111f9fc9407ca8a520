@@ -1,0 +1,24 @@
+package com.example.demo;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+public class DepartmentMapperTest {
+
+	
+	@Autowired
+	DepartmentMapper mapper;
+	
+	
+	@Test
+	public void selectAll() {
+		List<DepartmentVO> list = mapper.selectAll();
+		for(DepartmentVO depa : list ) {
+			System.out.println(depa.getDepartmentName());
+		}
+	}
+}

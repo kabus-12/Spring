@@ -1,0 +1,27 @@
+package jdbc;
+
+import java.util.List;
+
+import sun.jvm.hotspot.tools.SysPropsDumper;
+
+//import java.sql.SQLException;
+
+public class EmpDAOTest {
+
+	public static void main(String[] args)  {
+		EmployeeDAO empDAO = new EmployeeDAO();
+		
+		int cnt  = empDAO.delete(300);
+		System.out.println(cnt + " 건이 처리됨");
+		
+		
+		EmployeeVO emp = empDAO.selectOne(103);
+		System.out.println(emp.getFirstName()+" "+emp.getLastName()+" "+emp.getSalary()+" "+emp.getHireDate());
+		
+		
+//		List<EmployeeVO> list = empDAO.selectAll();
+//		for(EmployeeVO emp : list) {
+//        	System.out.println(emp.getFirstName()+" "+emp.getLastName()+" "+emp.getSalary()+" "+emp.getHireDate());
+//        }
+	}
+}

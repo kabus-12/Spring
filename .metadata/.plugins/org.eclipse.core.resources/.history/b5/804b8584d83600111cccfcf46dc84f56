@@ -1,0 +1,51 @@
+package jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class Jdbc01Test {
+	   public static void main(String[] args) {
+
+//	        String url = "jdbc:h2:mem:testdb"; // 인메모리 DB
+//	        String username = "sa";
+//	        String password = "";
+
+			String jdbc_driver = "oracle.jdbc.OracleDriver";
+			String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+			String username = "hr";
+			String password = "hr";
+
+	        try (
+	        		//(2. 데이터베이스 연결)
+	            Connection conn = DriverManager.getConnection(url, username, password);
+	            //SQL 구문
+	        	Statement stmt = conn.createStatement()
+	        ) {
+	        	
+	        	//(3.쿼리 실행)
+	            // 1. 테이블 생성(DDL)
+//	            stmt.execute("CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(50))");
+
+	            // 2. 데이터 삽입(DML)
+//	            stmt.executeUpdate("INSERT INTO users (id, name) VALUES (1, 'Alice')");
+//	            stmt.executeUpdate("INSERT INTO users (id, name) VALUES (2, 'Bob')");
+
+	            // 3. 데이터 조회(selsct)
+	        	ResultSet rs = stmt.executeQuery("SELECT * FROM employees");
+	        	
+	        	//결과를 List<EmployeeVO>에 저장
+	        	
+	            // 4. 출력
+	            while (rs.next()) {
+	                System.out.println(
+	                    rs.getInt("EMPLOYEE_ID") + " / " + rs.getString("FIRST_NAME") + " / " + rs.getDate("HIRE_DATE")
+	                );
+	            }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+}

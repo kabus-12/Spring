@@ -1,0 +1,12 @@
+package jdbc;
+
+//import java.sql.SQLException;
+
+public class EmpDAOTest {
+
+	public static void main(String[] args)  {
+		EmployeeDAO empDAO = new EmployeeDAO();
+		
+		System.out.println(empDAO.selectAll());
+	}
+}

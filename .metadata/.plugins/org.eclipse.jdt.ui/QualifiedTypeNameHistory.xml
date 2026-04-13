@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.sun.tools.javac.util.List"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="jdbc.EmployeeDAO"/>
+    <fullyQualifiedTypeName name="sun.jvm.hotspot.tools.SysPropsDumper"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="jdbc.EmployeeVO"/>
+    <fullyQualifiedTypeName name="jdbc.DepartmentDAO"/>
+    <fullyQualifiedTypeName name="jdbc.DepartmentVO"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.example.demo.EmployeeVO"/>
+    <fullyQualifiedTypeName name="com.example.demo.DepartmentVO"/>
+</qualifiedTypeNameHistroy>
