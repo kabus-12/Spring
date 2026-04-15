@@ -7,6 +7,43 @@
   </head>
   <body>
     <input id="targetDt" /><button id="btnSelect">조회</button>
-    <div id="movielist"></div>
+    <div id="container">
+      <div class="col border">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <td>순위</td>
+              <td>영화이름</td>
+              <td>개봉일</td>
+            </tr>
+          </thead>
+          <tbody id="movielist"></tbody>
+        </table>
+      </div>
+    </div>
+    <script>
+      document.querySelector("#btnSelect").addEventListener("click", (e) => {
+        let choiday = document.querySelector("#targetDt").value;
+        selectOne(choiday);
+      });
+      function selectOne(choiday) {
+        fetch(
+          `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=12664b24453335d2c3eca0fdc4b3b013&targetDt=${choiday}`,
+        )
+          .then((response) => response.json())
+          .then((post) => {
+            let box = post.boxOfficeResult.dailyBoxOfficeList;
+            for (let i = 0; i < box.length; i++) {
+              let tag = `
+              <tr data-id="${box[i].rank}">
+                <td>${box[i].rank}</td>
+                <td>${box[i].movieNm}</td>
+                <td>${box[i].openDt}</td>
+              </tr>`;
+              movielist.insertAdjacentHTML("beforeend", tag);
+            }
+          });
+      }
+    </script>
   </body>
 </html>
