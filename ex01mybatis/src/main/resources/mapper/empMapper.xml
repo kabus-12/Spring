@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="com.example.demo.EmployeeMapper">
+ <mapper namespace="com.example.demo.emp.mapper.EmployeeMapper">
  	
  	<select id="selectAll"
  			resultType="EmployeeVO">
@@ -27,12 +27,12 @@
  	</select>
  	<insert id="insert"
  			parameterType="EmployeeVO">
- 		insert into employees (employee_id, last_name, email, hire_date, job_id)
-		values(#{employeeId},#{lastName},#{email},#{hireDate},#{jobId})
+ 		insert into employees (employee_id, last_name, email, hire_date, job_id,salary)
+		values(#{employeeId},#{lastName},#{email},#{hireDate},#{jobId},#{salary})
  	</insert>
  	<update id="update">
  		update employees
-		set first_name = #{firstName},
+		set last_name = #{lastName},
 		salary = #{salary}
 		where employee_id = #{employeeId}
  	</update>

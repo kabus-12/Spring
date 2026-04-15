@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>event복습</title>
+  </head>
+  <body>
+    <h2>이벤트 위임(그룹이벤트)</h2>
+    <input id="txt" /><button type="button" id="btn">추가</button>
+    <div id="list">
+      <div data-price="200" data-cnt="4">바나나</div>
+      <div data-price="300" data-cnt="5">포도</div>
+      <div data-price="400" data-cnt="6">키위</div>
+    </div>
+    <script>
+      document.querySelector("#btn").addEventListener("click", () => {
+        //택스트 입력값을 조회
+        let fruit = document.querySelector("#txt").value;
+        //list div에 추가
+        let tag = `<div>${fruit}</div>`;
+        document.querySelector("#list").insertAdjacentHTML("beforeend", tag);
+        //추가 후 input 값 삭제
+        document.querySelector("#txt").value = "";
+      });
+
+      //부모에 이벤트 위임
+      document.querySelector("#list").addEventListener("click", (e) => {
+        e.target.style.backgroundColor = "yellowgreen";
+        //데이터 속성 읽어내기
+        console.log(e.target.dataset.price);
+      });
+
+      // 개별 이벤트
+      // document.querySelectorAll("#list div").forEach((el, idx) => {
+      //   el.addEventListener("click", (e) => {
+      //     e.target.style.backgroundColor = "yellowgreen";
+      //   });
+      // });
+    </script>
+  </body>
+</html>

@@ -8,9 +8,9 @@
 		<version>4.0.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>ex01mybatis</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>com.yedam</groupId>
+	<artifactId>app</artifactId>
+	<version>0.1</version>
 	<name>ex01mybatis</name>
 	<description/>
 	<url/>

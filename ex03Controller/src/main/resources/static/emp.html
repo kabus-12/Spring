@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-lg">
+      <div class="row">
+        <div class="col border">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>employeeId</td>
+                <td>lastname</td>
+                <td>salary</td>
+              </tr>
+            </thead>
+            <tbody id="emplist"></tbody>
+          </table>
+        </div>
+
+        <div class="col border">
+          <div class="mb-3">
+            <label for="postid" class="form-label">employeeId</label>
+            <input type="text" class="form-control" id="employeeId" />
+          </div>
+          <div class="mb-3">
+            <label for="posttitle" class="form-label">lastName</label>
+            <input type="text" class="form-control" id="lastName" />
+          </div>
+          <div class="mb-3">
+            <label for="userid" class="form-label">salary</label>
+            <input type="text" class="form-control" id="salary" />
+          </div>
+          <div class="mb-3">
+            <label for="userid" class="form-label">email</label>
+            <input type="text" class="form-control" id="email" />
+          </div>
+          <div>
+            <button type="button" class="btn btn-success" id="btninsert">
+              추가
+            </button>
+            <button type="button" class="btn btn-info" id="btnUpdate">
+              수정
+            </button>
+            <button type="button" class="btn btn-danger" id="btnDelete">
+              삭제
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      //페이지 로딩 후 게시글 전체조회
+      selectAll();
+
+      //클릭하면 조회
+      document.querySelector("#emplist").addEventListener("click", (e) => {
+        id = e.target.closest("tr").dataset.id;
+        selectOne(id);
+      });
+
+      /*-----------------
+      게시글 전체조회
+      ------------------*/
+      function selectAll() {
+        fetch("http://localhost/api/emp")
+          .then((response) => response.json())
+          .then((post) => {
+            for (let i = 0; i < 100; i++) {
+              if (`${post[i].employeeId}` == null) {
+                return;
+              }
+              let tag = `
+              <tr data-id="${post[i].employeeId}">
+                <td>${post[i].employeeId}</td>
+                <td>${post[i].lastName}</td>
+                <td>${post[i].salary}</td>
+              </tr>`;
+              document
+                .querySelector("#emplist")
+                .insertAdjacentHTML("beforeend", tag);
+            }
+          });
+      }
+      /*-----------------
+      게시글 단건조회
+      ------------------*/
+      function selectOne(id) {
+        fetch(`http://localhost/api/emp/${id}`)
+          .then((resp) => resp.json())
+          .then((post) => {
+            document.querySelector("#employeeId").value = post.employeeId;
+            document.querySelector("#lastName").value = post.lastName;
+            document.querySelector("#salary").value = post.salary;
+            document.querySelector("#email").value = post.email;
+          });
+      }
+
+      //추가
+      document.querySelector("#btninsert").addEventListener("click", (e) => {
+        let param = {};
+        param.employee_id = document.querySelector("#employeeId").value;
+        param.last_name = document.querySelector("#lastName").value;
+        param.salary = document.querySelector("#salary").value;
+        param.email = document.querySelector("#emial").value;
+        param.job_id = "IT_PROG";
+        fetch("http://localhost/api/emp", {
+          method: "POST",
+          body: JSON.stringify(param),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            alert("추가완료");
+            document.querySelector("#employeeId").value = "";
+            document.querySelector("#lastName").value = "";
+            document.querySelector("#salary").value = "";
+            document.querySelector("#email").value = "";
+          });
+      });
+
+      //수정
+      // document.querySelector("#btnUpdate").addEventListener("click", (e) => {
+      //   let id = document.querySelector("#postid").value;
+      //   fetch(`http://localhost/api/emp/${id}`, {
+      //     method: "PUT",
+      //     body: JSON.stringify({
+      //       id: document.querySelector("#postid").value,
+      //       title: document.querySelector("#posttitle").value,
+      //       body: document.querySelector("#postbody").value,
+      //       userId: document.querySelector("#userid ").value,
+      //     }),
+      //     headers: {
+      //       "Content-type": "application/json; charset=UTF-8",
+      //     },
+      //   })
+      //     .then((response) => response.json())
+      //     .then((json) => {
+      //       alert("수정완료");
+      //     });
+      // });
+      //삭제
+      document.querySelector("#btnDelete").addEventListener("click", (e) => {
+        let id = document.querySelector("#employeeId").value;
+        fetch(`http://localhost/api/emp/${id}`, {
+          method: "DELETE",
+        }).then((resp) => {
+          alert("삭제완료");
+          document.querySelector("#emplist").innerHTML = "";
+          document.querySelector("#employeeId").value = "";
+          document.querySelector("#lastName").value = "";
+          document.querySelector("#salary").value = "";
+          document.querySelector("#email").value = "";
+          selectAll();
+        });
+      });
+    </script>
+  </body>
+</html>
