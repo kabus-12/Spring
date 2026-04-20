@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.example.demo.board.mapper.BoardMapper">
+ <sql id="criteria">
+ 	<where>
+	 	<if test = "title != null and title != ''">
+	 		and title=#{title}
+	 	</if>
+	 	<if test = "writer != null and writer != ''">
+	 		and writer=#{writer}
+	 	</if>
+ 	</where>
+ </sql>
+ 
+ 
+ <select id="selectAll_COUNT" resultType="int">
+ 	SELECT COUNT(*) FROM tbl_board
+ 	<include refid="criteria"></include>
+ </select>
+ 
+ <select id="getList" resultType="BoardVO">
+ 	select *
+ 	from tbl_board
+ 	<include refid="criteria"></include>
+ 	order by bno
+ </select>
+ <select id="read">
+ 	select *
+ 	from tbl_board
+ 	where bno = #{bno}
+ </select>
+ <insert id="insert" parameterType="BoardVO">
+ 	<selectKey keyProperty="bno" resultType="Integer" order="BEFORE">
+ 		select seq_board.nextval from dual
+ 	</selectKey>
+ 	insert into tbl_board (bno,title,content,writer,attach)
+ 	values(#{bno},#{title},#{content},#{writer},#{attach})
+ </insert>
+ <update id="update">
+ 	update tbl_board
+ 	set title = #{title},
+ 	content = #{content},
+ 	writer = #{writer},
+ 	regdate = sysdate
+ 	where bno = #{bno}
+ </update>
+ <delete id="delete">
+ 	delete tbl_board
+ 	where bno = #{bno}
+ </delete>
+ </mapper>

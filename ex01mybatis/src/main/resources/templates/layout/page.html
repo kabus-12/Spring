@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>page</title>
+
+</head>
+<body>
+<div th:fragment="page(pageInfo)">
+<nav aria-label="Page navigation example">
+<ul class="pagination">
+  <li class="page-item" th:if="${pageInfo.hasPreviousPage}">
+    <a class="page-link" href="#" aria-label="Previous" th:onclick="gopage([[${pageInfo.prePage}]])">
+      <span aria-hidden="true">&laquo;</span>
+    </a>
+  </li>
+  <li class="page-item" th:each="i:${pageInfo.navigatepageNums}"><a class="page-link" href="#" th:onclick="gopage([[${i}]])">[[${i}]]</a></li>
+  <li class="page-item" th:if="${pageInfo.hasNextPage}">
+    <a class="page-link" href="#" aria-label="Next" th:onclick="gopage([[${pageInfo.nextPage}]])">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+</ul>
+</nav>
+</div>
+</body>
+</html>

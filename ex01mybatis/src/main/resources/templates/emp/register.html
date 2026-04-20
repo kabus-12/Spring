@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form th:object="${emp}" method="post" layout:fragment="content">
+<h3 th:text="${emp.employeeId} == null ? '사원등록':'사원수정'">사원등록/수정</h3>
+<div class="col border">
+          <div class="mb-3">
+            <label for="employeeId" class="form-label">employeeId</label>
+            <input th:value="*{employeeId}" type="text" class="form-control" name="employeeId" />
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">lastName</label>
+            <input th:value="*{lastName}" type="text" class="form-control" name="lastName" />
+          </div>
+          <div class="mb-3">
+            <label for="salary" class="form-label">salary</label>
+            <input th:value="*{salary}" type="text" class="form-control" name="salary" />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">email</label>
+            <input th:value="*{email}" type="text" class="form-control" name="email" />
+          </div>
+          <div class="mb-3">
+            <label for="jobId" class="form-label">jobId</label>
+            <input th:value="*{jobId}" type="text" class="form-control" name="jobId" />
+          </div>
+          <div class="mb-3">
+            <label for="hireDate" class="form-label">hireDate</label>
+            <input th:value="${#dates.format(emp.hireDate,'yyyy/MM/dd')}" type="text" class="form-control" name="hireDate" />
+          </div>
+          <div>
+            <button th:if="${emp.employeeId == null}" formaction="/emp/register" class="btn btn-success" id="btninsert">
+              등록
+            </button>
+            <th:block th:unless="${emp.employeeId == null}">
+            <button formaction="/emp/update" class="btn btn-info" id="btnUpdate">
+              수정
+            </button>
+            <button type="button" class="btn btn-danger" id="btnDelete" th:onclick="|location.href='/emp/delete?id=${emp.employeeId}'|">
+              삭제
+            </button>
+            </th:block>
+          </div>
+        </div>
+</form>
+</body>
+</html>

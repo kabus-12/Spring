@@ -3,21 +3,30 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.example.demo.emp.mapper.EmployeeMapper">
  	
+ 	<sql id="criteria">
+		<where>
+ 			<if test = "departmentId != null">
+ 				and department_id = #{departmentId}
+ 			</if>
+ 			<if test = "managerId != null">
+ 				and manager_id = #{managerId}
+ 			</if>
+	 		<if test = "lastName != null and lastName !=''">
+	 			and upper(last_name) like upper('%' || #{lastName} ||'%')
+	 		</if>
+ 		</where>
+ 	</sql>
+ 	
+ 	<select id="selectAll_COUNT" resultType="int">
+  		SELECT COUNT(*) FROM employees
+  		<include refid="criteria"></include>
+	</select>
+ 	
  	<select id="selectAll"
  			resultType="EmployeeVO">
  		select * 
  		from employees
- 		<where>
- 		<if test = "departmentId != null">
- 		and department_id = #{departmentId}
- 		</if>
- 		<if test = "managerId != null">
- 		and manager_id = #{managerId}
- 		</if>
- 		<if test = "firstName != null">
- 		and upper(first_name) like upper('%' || #{firstName} ||'%')
- 		</if>
- 		</where>
+ 		<include refid="criteria"></include>
  	</select>
  	
  	<select id="selectOne">

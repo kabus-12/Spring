@@ -9,6 +9,7 @@ import com.example.demo.emp.EmployeeVO;
 //@Component + 프록시 (대행)클래스 구현
 @Mapper
 public interface EmployeeMapper {
+	int selectAll_COUNT(EmployeeVO emp);
 	List<EmployeeVO> selectAll(EmployeeVO emp);
 	EmployeeVO selectOne(int empid);
 	int insert(EmployeeVO emp);

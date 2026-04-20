@@ -25,6 +25,23 @@ public class EmployeeVO {
 	private double commissionPct;
 	private int managerId;
 	private int departmentId;
+	
+	EmployeeVO(){};
+	
+	
+	public EmployeeVO(int employeeId, String firstName) {
+		super();
+		this.employeeId = employeeId;
+		this.firstName = firstName;
+	}
+
+	public EmployeeVO(int employeeId, String firstName, double salary) {
+		super();
+		this.employeeId = employeeId;
+		this.firstName = firstName;
+		this.salary = salary;
+	}
+
 	public int getEmployeeId() {
 		return employeeId;
 	}
@@ -91,6 +108,14 @@ public class EmployeeVO {
 	public void setDepartmentId(int departmentId) {
 		this.departmentId = departmentId;
 	}
+
+
+	@Override
+	public String toString() {
+		return "EmployeeVO [employeeId=" + employeeId + ", firstName=" + firstName + "]";
+	}
+
+
 	
 	
 	

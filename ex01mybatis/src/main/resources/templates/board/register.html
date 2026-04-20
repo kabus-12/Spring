@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>등록/수정</title>
+</head>
+<body>
+<form th:object="${board}" method="post" layout:fragment="content" enctype="multipart/form-data">
+<h3 th:text="${board.bno} == null ? '도서등록':'도서수정'">도서등록/수정</h3>
+<div class="col border">
+          <div class="mb-3">
+            <label for="title" class="form-label">title</label>
+            <input th:value="*{title}" type="text" class="form-control" name="title" />
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">content</label>
+            <textarea th:field="*{content}"  class="form-control" name="content" /></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="writer" class="form-label">writer</label>
+            <input th:value="*{writer}" type="text" class="form-control" name="writer" />
+          </div>
+          <div class="mb-3">
+            <label for="file" class="form-label">첨부파일</label>
+            <input type="file" class="form-control" name="file" />
+          </div>
+          <div>
+            <button th:if="${board.bno == null}" formaction="/board/register" class="btn btn-success" id="btninsert">
+              등록
+            </button>
+            <th:block th:unless="${board.bno == null}">
+            <button formaction="/board/update" class="btn btn-info" id="btnUpdate">
+              수정
+            </button>
+            <button type="button" class="btn btn-danger" id="btnDelete" th:onclick="|location.href='/board/delete?id=${board.bno}'|">
+              삭제
+            </button>
+            </th:block>
+          </div>
+        </div>
+</form>
+</body>
+</html>

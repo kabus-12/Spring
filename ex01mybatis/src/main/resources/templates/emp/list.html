@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/layout}">
+	  
+<head>
+<meta charset="UTF-8">
+<title>emp.html</title>
+<style>
+	.back {background-color:yellowgreen;}
+	.bold{font-weight: bold;}
+	.red{color:red}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+<div layout:fragment="content">
+<h1>사원목록</h1>
+<form th:object="${emp}" name="frm">
+	<input type="hidden" name="pageNum" value="1">
+	departmentId : <input th:field="*{departmentId}">
+	managerId : <input th:field="*{managerId}">
+	lastName : <input th:field="*{lastName}">
+	<button>검색</button>
+	<button type="reset">초기화</button>
+</form>
+<!--/*<div>사원수: <span>[[${#lists.size(list)}]]</span>명</div>*/-->
+<a th:href="@{/emp/register}">등록</a>
+<table class=table>
+	<tr>
+		<td>순번</td>
+		<td>사원번호</td>
+		<td>이름</td>
+		<td>급여</td>
+		<td>입사일자</td>
+		<td>보너스</td>
+		<td>수정/삭제</td>
+	</tr>
+	<tr th:each="emp : ${pageInfo.list}" th:class="${empStat.even}? 'back':_">
+		<td th:text="${empStat.count}"></td>
+	    <td th:text="${emp.employeeId}"></td>
+	    <td><a th:text="${emp.lastName}" th:href="@{/emp/info(id=${emp.employeeId})}" ></a></td>
+	    <td th:text="${#numbers.formatInteger(emp.salary,3,'COMMA')}" class="bold" 
+	    	th:classappend="${emp.salary>10000 ? 'red':_}"></td>
+	    <td th:text="${#dates.format(emp.hireDate,'yyyy-MM-dd hh:mm')}"></td>
+	    <td>
+	    <span th:if="${emp.salary>10000}">있음</span>
+	    <span th:unless="${emp.salary>10000}" class="red">없음</span>
+	    </td>
+	    <td>
+	    <a th:href="@{/emp/update(id=${emp.employeeId})}">수정</a>
+	    <a th:href="@{/emp/delete(id=${emp.employeeId})}">삭제</a>
+	    </td>
+    </tr>
+</table>
+<div th:insert="~{layout/page::page(${pageInfo})}"></div>
+<script th:inline="javascript">
+	let emplist = /*[[${list}]]*/[]
+	
+	function gopage(pageNum){
+		frm.pageNum.value = pageNum;
+		frm.submit();
+	}
+</script>
+</div>
+</body>
+</html>

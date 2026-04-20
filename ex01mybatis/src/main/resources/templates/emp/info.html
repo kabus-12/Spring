@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>사원정보</h3>
+<table border="1">
+	<tr>
+		<td>사원번호</td>
+		<td th:text="${emp.employeeId}"></td>
+	</tr>
+	<tr>
+		<td>사원명</td>
+		<td th:text="|${emp.firstName} ${emp.lastName}|"></td>
+	</tr>
+	<tr>
+		<td>급여</td>
+		<td th:text="${emp.salary}"></td>
+	</tr>
+	<tr>
+		<td>입사일자</td>
+		<td th:text="${#dates.format(emp.hireDate,'yyyy-MM-DD hh:mm')}"></td>
+	</tr>
+	<tr>
+		<td>직업</td>
+		<td th:text="${emp.jobId}"></td>
+	</tr>
+</table>
+</body>
+</html>
