@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.board.BoardVO;
-import com.example.demo.board.mapper.BoardMapper;
+import com.example.demo.board.service.BoardService;
+import com.example.demo.board.service.BoardVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -33,31 +33,22 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 
 	@Autowired
-	BoardMapper boardMapper;
+	BoardService boardService;
 	
 	//전체조회
 	@GetMapping("/board/list")
 	public String getlist(@ModelAttribute("board") BoardVO vo
 			,Model model
 			,@RequestParam(required = false,defaultValue="1") int pageNum) {
-		PageInfo<Object> page = PageHelper.startPage(pageNum,5).doSelectPageInfo(() -> boardMapper.getList(vo));
-		log.info("TotalCount : {}, CurrentPage : {}, PageSize : {}, TotalPage{}"
-				,page.getTotal()
-				,page.getPageSize()
-				,page.isHasNextPage()
-				,page.isHasPreviousPage()
-				,page.getPrePage()
-				,page.getNextPage()
-				,page.getNavigatepageNums());
-		System.out.println(page.getList());
-		model.addAttribute("pageInfo",page);
+		
+		model.addAttribute("pageInfo",boardService.getList(vo, pageNum));
 		return "board/list";
 	}
 	
 	//단건조회
 	@GetMapping("/board/info")
 	public void info(@RequestParam int bno,Model model) {
-		model.addAttribute("board", boardMapper.read(bno));
+		model.addAttribute("board", boardService.read(bno));
 	}
 	
 	//등록페이지로 이동
@@ -73,28 +64,28 @@ public class BoardController {
 		file.transferTo(new File("d:/upload",file.getOriginalFilename()));
 		vo.setAttach(file.getOriginalFilename());
 		
-		boardMapper.insert(vo);
+		boardService.insert(vo);
 		return "redirect:/board/list";
 	}
 	
 	//수정페이지로 이동
 	@GetMapping("/board/update")
 	public String update(int bno, Model model) {
-		model.addAttribute("board", boardMapper.read(bno));
+		model.addAttribute("board", boardService.read(bno));
 		return "board/register";
 	}
 	
 	//수정
 	@PostMapping("/board/update")
 	public String updateProc(BoardVO vo) {
-		boardMapper.update(vo);
+		boardService.update(vo);
 		return "redirect:/board/list";
 	}
 	
 	//삭제
 	@GetMapping("/board/delete")
 	public String deleteProc(int bno) {
-		boardMapper.delete(bno);
+		boardService.delete(bno);
 		return "redirect:/board/list";
 	}
 	

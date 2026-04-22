@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.demo.emp.DepartmentVO;
+import com.example.demo.emp.service.DepartmentVO;
 
 @Mapper
 public interface DepartmentMapper {

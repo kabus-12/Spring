@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Hello World!</title>
+    </head>
+    <body>
+        <h1>Hello world!</h1>
+        <form action="/logout" method="post">
+        	<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+            <input type="submit" value="Sign Out"/>
+        </form>
+        
+        <input th:value="${#authentication.principal.username}" />
+        <span th:text="${#authentication.principal.username}">관리자</span>
+        <span th:text="${session.deptName}"></span>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">관리자입니다.</div>
+    </body>
+</html>

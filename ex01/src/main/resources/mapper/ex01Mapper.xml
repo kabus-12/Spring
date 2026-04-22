@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.Ex01Mapper">
+	<select id="getList" >
+		select * from slip
+	</select>
+	<select id="read">
+		select *
+		from slip
+		where slip_no = #{slipNo}
+	</select>
+	<insert id="insert">
+	<selectKey keyProperty="slip_no" resultType="Integer" order="BEFORE">
+		select seq_slip.nextval from dual
+	</selectKey>
+	insert into slip (slip_no,slip_amount,slip_dt,sal_dt,customer,bank_acct)
+	values(#{slipNo},#{slipAmount},#{slipDt},#{salDt},#{customer},#{bankAcct})
+	</insert>
+</mapper>

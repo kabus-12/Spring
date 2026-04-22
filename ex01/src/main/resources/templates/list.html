@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+	crossorigin="anonymous">
+</head>
+<body>
+	<h1>연습</h1>
+	<a th:href="@{/insert}">등록</a>
+	<table class=talbe>
+		<tr >
+			<td>SLIP_NO</td>
+			<td>SLIP_AMOUNT</td>
+			<td>SLIP_DT</td>
+			<td>SAL_DT</td>
+			<td>CUSTOMER</td>
+			<td>BANK_ACCT</td>
+		</tr>
+		<tr th:each="ex01 : ${list}">
+			<td th:text="${ex01.slipNo}"></td>
+			<td th:text="${ex01.slipAmount}"></td>
+			<td><a th:text="${ex01.slipDt}" th:href="@{/info(no=${ex01.slipNo})}"></a></td>
+			<td th:text="${ex01.salDt}"></td>
+			<td th:text="${ex01.customer}"></td>
+			<td th:text="${ex01.bankAcct}"></td>
+		</tr>
+	</table>
+</body>
+</html>

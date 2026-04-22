@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div >
+		<h3>정보</h3>
+		<table border="1">
+			<tr>
+				<td>SLIP_NO</td>
+				<td th:text="${list.slipNo}"></td>
+			</tr>
+			<tr>
+				<td>SLIP_AMOUNT</td>
+				<td th:text="${list.slipAmount}"></td>
+			</tr>
+			<tr>
+				<td>SLIP_DT</td>
+				<td th:text="${list.slipDt}"></td>
+			</tr>
+			<tr>
+				<td>SAL_DT</td>
+				<td th:text="${list.salDt}"></td>
+			</tr>
+			<tr>
+				<td>CUSTOMER</td>
+				<td th:text="${list.customer}"></td>
+			</tr>
+			<tr>
+				<td>BANK_ACCT</td>
+				<td th:text="${list.bankAcct}"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
